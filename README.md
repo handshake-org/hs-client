@@ -6,7 +6,6 @@ REST and RPC clients for bcoin.
 
 ``` js
 const {NodeClient, WalletClient} = require('bclient');
-
 ```
 
 ## Contribution and License Agreement
