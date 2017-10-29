@@ -5,7 +5,7 @@ REST and RPC clients for bcoin.
 ## Usage
 
 ``` js
-const bcurl = require('bclient');
+const {NodeClient, WalletClient} = require('bclient');
 
 ```
 
