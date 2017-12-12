@@ -23,8 +23,15 @@
     "test": "mocha --reporter spec test/*-test.js",
     "webpack": "webpack --config webpack.config.js"
   },
+  "bin": {
+    "bcoin-cli": "./bin/bcoin-cli",
+    "bwallet-cli": "./bin/bwallet-cli"
+  },
   "dependencies": {
     "bcurl": "^0.0.1"
+  },
+  "optionalDependencies": {
+    "bcfg": "^0.0.1"
   },
   "devDependencies": {
     "babelify": "^7.3.0",
