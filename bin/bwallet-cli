@@ -38,6 +38,9 @@ class CLI {
     this.argv = this.config.argv;
     this.network = this.config.str('network', 'main');
 
+    const id = this.config.str('id', 'primary');
+    const token = this.config.str('token', '');
+
     this.client = new WalletClient({
       url: this.config.str('url'),
       apiKey: this.config.str('api-key'),
@@ -46,9 +49,10 @@ class CLI {
       port: this.config.uint('http-port')
         || ports[this.network]
         || ports.main,
-      id: this.config.str('id', 'primary'),
-      token: this.config.str('token')
+      token
     });
+
+    this.wallet = this.client.wallet(id, token);
   }
 
   log(json) {
@@ -63,8 +67,9 @@ class CLI {
   }
 
   async createWallet() {
+    const id = this.config.str([0, 'id']);
+
     const options = {
-      id: this.config.str([0, 'id']),
       type: this.config.str('type'),
       master: this.config.str('master'),
       mnemonic: this.config.str('mnemonic'),
@@ -76,20 +81,20 @@ class CLI {
       accountKey: this.config.str('key')
     };
 
-    const wallet = await this.client.createWallet(options);
+    const wallet = await this.client.createWallet(id, options);
 
     this.log(wallet);
   }
 
   async getMaster() {
-    const master = await this.client.getMaster();
+    const master = await this.wallet.getMaster();
 
     this.log(master);
   }
 
   async getKey() {
     const address = this.config.str(0);
-    const key = await this.client.getKey(address);
+    const key = await this.wallet.getKey(address);
 
     this.log(key);
   }
@@ -97,7 +102,7 @@ class CLI {
   async getWIF() {
     const address = this.config.str(0);
     const passphrase = this.config.str('passphrase');
-    const key = await this.client.getWIF(address, passphrase);
+    const key = await this.wallet.getWIF(address, passphrase);
 
     if (!key) {
       this.log('Key not found.');
@@ -111,7 +116,7 @@ class CLI {
     const key = this.config.str(0);
     const account = this.config.str('account');
 
-    await this.client.addSharedKey(account, key);
+    await this.wallet.addSharedKey(account, key);
 
     this.log('Added key.');
   }
@@ -120,14 +125,14 @@ class CLI {
     const key = this.config.str(0);
     const account = this.config.str('account');
 
-    await this.client.removeSharedKey(account, key);
+    await this.wallet.removeSharedKey(account, key);
 
     this.log('Removed key.');
   }
 
   async getSharedKeys() {
     const acct = this.config.str([0, 'account']);
-    const account = await this.client.getAccount(acct);
+    const account = await this.wallet.getAccount(acct);
 
     if (!account) {
       this.log('Account not found.');
@@ -139,7 +144,7 @@ class CLI {
 
   async getAccount() {
     const acct = this.config.str([0, 'account']);
-    const account = await this.client.getAccount(acct);
+    const account = await this.wallet.getAccount(acct);
 
     this.log(account);
   }
@@ -155,92 +160,93 @@ class CLI {
       accountKey: this.config.str('key')
     };
 
-    const account = await this.client.createAccount(name, options);
+    const account = await this.wallet.createAccount(name, options);
 
     this.log(account);
   }
 
   async createAddress() {
     const account = this.config.str([0, 'account']);
-    const addr = await this.client.createAddress(account);
+    const addr = await this.wallet.createAddress(account);
 
     this.log(addr);
   }
 
   async createChange() {
     const account = this.config.str([0, 'account']);
-    const addr = await this.client.createChange(account);
+    const addr = await this.wallet.createChange(account);
 
     this.log(addr);
   }
 
   async createNested() {
     const account = this.config.str([0, 'account']);
-    const addr = await this.client.createNested(account);
+    const addr = await this.wallet.createNested(account);
 
     this.log(addr);
   }
 
   async getAccounts() {
-    const accounts = await this.client.getAccounts();
+    const accounts = await this.wallet.getAccounts();
     this.log(accounts);
   }
 
   async getWallet() {
-    const info = await this.client.getInfo();
+    const info = await this.wallet.getInfo();
     this.log(info);
   }
 
   async getWalletHistory() {
     const account = this.config.str('account');
-    const txs = await this.client.getHistory(account);
+    const txs = await this.wallet.getHistory(account);
 
     this.log(txs);
   }
 
   async getWalletPending() {
     const account = this.config.str('account');
-    const txs = await this.client.getPending(account);
+    const txs = await this.wallet.getPending(account);
 
     this.log(txs);
   }
 
   async getWalletCoins() {
     const account = this.config.str('account');
-    const coins = await this.client.getCoins(account);
+    const coins = await this.wallet.getCoins(account);
 
     this.log(coins);
   }
 
   async listenWallet() {
     await this.client.open();
+    await this.wallet.open();
 
-    this.client.on('tx', (details) => {
+    this.wallet.on('tx', (details) => {
       this.log('TX:');
       this.log(details);
     });
 
-    this.client.on('confirmed', (details) => {
+    this.wallet.on('confirmed', (details) => {
       this.log('TX confirmed:');
       this.log(details);
     });
 
-    this.client.on('unconfirmed', (details) => {
+    this.wallet.on('unconfirmed', (details) => {
       this.log('TX unconfirmed:');
       this.log(details);
     });
 
-    this.client.on('conflict', (details) => {
+    this.wallet.on('conflict', (details) => {
       this.log('TX conflict:');
       this.log(details);
     });
 
-    this.client.on('address', (receive) => {
+    this.wallet.on('address', (receive) => {
       this.log('New addresses allocated:');
       this.log(receive);
     });
 
-    this.client.on('balance', (balance) => {
+    this.wallet.on('balance', (balance) => {
       this.log('Balance:');
       this.log(balance);
     });
@@ -252,13 +258,13 @@ class CLI {
 
   async getBalance() {
     const account = this.config.str('account');
-    const balance = await this.client.getBalance(account);
+    const balance = await this.wallet.getBalance(account);
 
     this.log(balance);
   }
 
   async getMempool() {
-    const txs = await this.client.getMempool();
+    const txs = await this.wallet.getMempool();
 
     this.log(txs);
   }
@@ -287,7 +293,7 @@ class CLI {
       subtractFee: this.config.bool('subtract-fee')
     };
 
-    const tx = await this.client.send(options);
+    const tx = await this.wallet.send(options);
 
     this.log(tx);
   }
@@ -316,7 +322,7 @@ class CLI {
       subtractFee: this.config.bool('subtract-fee')
     };
 
-    const tx = await this.client.createTX(options);
+    const tx = await this.wallet.createTX(options);
 
     this.log(tx);
   }
@@ -324,7 +330,7 @@ class CLI {
   async signTX() {
     const passphrase = this.config.str('passphrase');
     const raw = this.config.str([0, 'tx']);
-    const tx = await this.client.sign(raw, { passphrase });
+    const tx = await this.wallet.sign(raw, { passphrase });
 
     this.log(tx);
   }
@@ -333,48 +339,40 @@ class CLI {
     const age = this.config.uint([0, 'age'], 72 * 60 * 60);
     const account = this.config.str('account');
 
-    await this.client.zap(account, age);
+    await this.wallet.zap(account, age);
 
     this.log('Zapped!');
   }
 
-  async broadcast() {
-    const raw = this.config.str([0, 'tx']);
-    const tx = await this.client.broadcast(raw);
-
-    this.log('Broadcasted:');
-    this.log(tx);
-  }
-
   async viewTX() {
     const raw = this.config.str([0, 'tx']);
-    const tx = await this.client.fill(raw);
+    const tx = await this.wallet.fill(raw);
 
     this.log(tx);
   }
 
   async getDetails() {
     const hash = this.config.str(0);
-    const details = await this.client.getTX(hash);
+    const details = await this.wallet.getTX(hash);
 
     this.log(details);
   }
 
   async getWalletBlocks() {
-    const blocks = await this.client.getBlocks();
+    const blocks = await this.wallet.getBlocks();
     this.log(blocks);
   }
 
   async getWalletBlock() {
     const height = this.config.uint(0);
-    const block = await this.client.getBlock(height);
+    const block = await this.wallet.getBlock(height);
 
     this.log(block);
   }
 
   async retoken() {
     const passphrase = this.config.str('passphrase');
-    const result = await this.client.retoken(passphrase);
+    const result = await this.wallet.retoken(passphrase);
 
     this.log(result);
   }
@@ -387,17 +385,6 @@ class CLI {
     this.log('Rescanning...');
   }
 
-  async reset() {
-    let hash = this.config.str(0);
-
-    if (hash.length !== 64)
-      hash = parseInt(hash, 10);
-
-    await this.client.reset(hash);
-
-    this.log('Chain has been reset.');
-  }
-
   async resend() {
     await this.client.resend();
 
@@ -405,7 +392,7 @@ class CLI {
   }
 
   async resendWallet() {
-    await this.client.resend();
+    await this.wallet.resend();
 
     this.log('Resending...');
   }
@@ -427,12 +414,12 @@ class CLI {
       throw new Error('No key for import.');
 
     if (key.length === 66 || key.length === 130) {
-      await this.client.importPublic(account, key);
+      await this.wallet.importPublic(account, key);
       this.log('Imported public key.');
       return;
     }
 
-    await this.client.importPrivate(account, key, passphrase);
+    await this.wallet.importPrivate(account, key, passphrase);
 
     this.log('Imported private key.');
   }
@@ -441,13 +428,13 @@ class CLI {
     const address = this.config.str(0);
     const account = this.config.str('account');
 
-    await this.client.importAddress(account, address);
+    await this.wallet.importAddress(account, address);
 
     this.log('Imported address.');
   }
 
   async lock() {
-    await this.client.lock();
+    await this.wallet.lock();
 
     this.log('Locked.');
   }
@@ -456,7 +443,7 @@ class CLI {
     const passphrase = this.config.str(0);
     const timeout = this.config.uint(1);
 
-    await this.client.unlock(passphrase, timeout);
+    await this.wallet.unlock(passphrase, timeout);
 
     this.log('Unlocked.');
   }
@@ -690,7 +677,7 @@ class CLI {
   }
 
   async destroy() {
-    if (this.client && this.client.opened)
+    if (this.client.opened)
       await this.client.close();
   }
 }
