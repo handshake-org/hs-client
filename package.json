@@ -1,6 +1,6 @@
 {
   "name": "bclient",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Bcoin node and wallet client",
   "keywords": [
     "http",
@@ -28,27 +28,23 @@
     "bwallet-cli": "./bin/bwallet-cli"
   },
   "dependencies": {
-    "bcurl": "^0.0.1"
-  },
-  "optionalDependencies": {
-    "bcfg": "^0.0.1"
+    "bcfg": "~0.0.1",
+    "bcurl": "~0.0.1"
   },
   "devDependencies": {
-    "babelify": "^7.3.0",
+    "babelify": "^8.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "browserify": "^14.5.0",
-    "eslint": "^4.9.0",
+    "eslint": "^4.14.0",
     "mocha": "^4.0.1",
-    "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
+    "uglifyjs-webpack-plugin": "^1.1.5",
     "uglify-es": "^3.1.3",
-    "webpack": "^3.8.1"
+    "webpack": "^3.10.0"
   },
   "engines": {
     "node": ">=7.6.0"
-  },
-  "browser": {
   },
   "browserify": {
     "transform": [
