@@ -28,20 +28,20 @@
     "hwallet-cli": "./bin/hwallet-cli"
   },
   "dependencies": {
-    "bcfg": "~0.0.1",
-    "bcurl": "~0.0.1"
+    "bcfg": "~0.0.2",
+    "bcurl": "~0.0.2"
   },
   "devDependencies": {
     "babelify": "^8.0.0",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
-    "browserify": "^14.5.0",
-    "eslint": "^4.14.0",
-    "mocha": "^4.0.1",
-    "uglifyjs-webpack-plugin": "^1.1.5",
-    "uglify-es": "^3.1.3",
-    "webpack": "^3.10.0"
+    "browserify": "^16.1.1",
+    "eslint": "^4.18.2",
+    "mocha": "^5.0.4",
+    "uglifyjs-webpack-plugin": "^1.2.3",
+    "uglify-es": "^3.3.9",
+    "webpack": "^4.1.1"
   },
   "engines": {
     "node": ">=7.6.0"
