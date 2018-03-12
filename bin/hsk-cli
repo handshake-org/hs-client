@@ -6,15 +6,15 @@ const Config = require('bcfg');
 const NodeClient = require('../lib/node');
 
 const ports = {
-  main: 8332,
-  testnet: 18332,
-  regtest: 48332,
-  simnet: 18556
+  main: 12037,
+  testnet: 13037,
+  regtest: 14037,
+  simnet: 15037
 };
 
 class CLI {
   constructor() {
-    this.config = new Config('bcoin', {
+    this.config = new Config('hsk', {
       suffix: 'network',
       fallback: 'main',
       alias: {
@@ -33,7 +33,7 @@ class CLI {
       env: true
     });
 
-    this.config.open('bcoin.conf');
+    this.config.open('hsk.conf');
 
     this.argv = this.config.argv;
     this.network = this.config.str('network', 'main');

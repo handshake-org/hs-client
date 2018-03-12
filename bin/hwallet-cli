@@ -6,15 +6,15 @@ const Config = require('bcfg');
 const WalletClient = require('../lib/wallet');
 
 const ports = {
-  main: 8334,
-  testnet: 18334,
-  regtest: 48334,
-  simnet: 18558
+  main: 12039,
+  testnet: 13039,
+  regtest: 14039,
+  simnet: 15039
 };
 
 class CLI {
   constructor() {
-    this.config = new Config('bcoin', {
+    this.config = new Config('hsk', {
       suffix: 'network',
       fallback: 'main',
       alias: {

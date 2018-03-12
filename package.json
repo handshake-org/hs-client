@@ -1,7 +1,7 @@
 {
-  "name": "bclient",
-  "version": "0.0.1",
-  "description": "Bcoin node and wallet client",
+  "name": "hsk-client",
+  "version": "0.0.0",
+  "description": "HSK node and wallet client",
   "keywords": [
     "http",
     "request",
@@ -9,23 +9,23 @@
     "websockets"
   ],
   "license": "MIT",
-  "repository": "git://github.com/bcoin-org/bclient.git",
-  "homepage": "https://github.com/bcoin-org/bclient",
+  "repository": "git://github.com/bcoin-org/hsk-client.git",
+  "homepage": "https://github.com/bcoin-org/hsk-client",
   "bugs": {
-    "url": "https://github.com/bcoin-org/bclient/issues"
+    "url": "https://github.com/bcoin-org/hsk-client/issues"
   },
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
-  "main": "./lib/bclient.js",
+  "main": "./lib/hsk-client.js",
   "scripts": {
-    "browserify": "browserify -s bclient lib/bclient.js | uglifyjs -c > bclient.js",
-    "clean": "rm -f bclient.js",
+    "browserify": "browserify -s hsk-client lib/hsk-client.js | uglifyjs -c > hsk-client.js",
+    "clean": "rm -f hsk-client.js",
     "lint": "eslint lib/ test/ || exit 0",
     "test": "mocha --reporter spec test/*-test.js",
     "webpack": "webpack --config webpack.config.js"
   },
   "bin": {
-    "bcoin-cli": "./bin/bcoin-cli",
-    "bwallet-cli": "./bin/bwallet-cli"
+    "hsk-cli": "./bin/hsk-cli",
+    "hwallet-cli": "./bin/hwallet-cli"
   },
   "dependencies": {
     "bcfg": "~0.0.1",

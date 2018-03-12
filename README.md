@@ -1,11 +1,11 @@
-# bclient
+# hsk-client
 
-REST and RPC clients for bcoin.
+REST and RPC clients for handshake.
 
 ## Usage
 
 ``` js
-const {NodeClient, WalletClient} = require('bclient');
+const {NodeClient, WalletClient} = require('hsk-client');
 ```
 
 ## Contribution and License Agreement
