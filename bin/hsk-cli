@@ -219,7 +219,6 @@ class CLI {
   const cli = new CLI();
   await cli.open();
   await cli.destroy();
-  process.exit(0);
 })().catch((err) => {
   console.error(err.stack);
   process.exit(1);
