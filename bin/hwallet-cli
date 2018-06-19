@@ -33,6 +33,10 @@ class CLI {
       env: true
     });
 
+    this.config.inject({
+      network: 'testnet'
+    });
+
     this.config.open('wallet.conf');
 
     this.argv = this.config.argv;
