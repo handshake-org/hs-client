@@ -15,7 +15,7 @@ const ports = {
 
 class CLI {
   constructor() {
-    this.config = new Config('hsk', {
+    this.config = new Config('hskd', {
       suffix: 'network',
       fallback: 'main',
       alias: {
