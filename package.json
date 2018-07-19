@@ -1,7 +1,7 @@
 {
   "name": "hsk-client",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "description": "HSK node and wallet client",
   "keywords": [
     "http",
@@ -10,10 +10,10 @@
     "websockets"
   ],
   "license": "MIT",
-  "repository": "git://github.com/bcoin-org/hsk-client.git",
-  "homepage": "https://github.com/bcoin-org/hsk-client",
+  "repository": "git://github.com/handshake-org/hsk-client.git",
+  "homepage": "https://github.com/handshake-org/hsk-client",
   "bugs": {
-    "url": "https://github.com/bcoin-org/hsk-client/issues"
+    "url": "https://github.com/handshake-org/hsk-client/issues"
   },
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
   "main": "./lib/hsk-client.js",
