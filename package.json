@@ -1,5 +1,6 @@
 {
   "name": "hsk-client",
+  "private": true,
   "version": "0.0.0",
   "description": "HSK node and wallet client",
   "keywords": [
