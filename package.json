@@ -17,41 +17,23 @@
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
   "main": "./lib/hsk-client.js",
   "scripts": {
-    "browserify": "browserify -s hsk-client lib/hsk-client.js | uglifyjs -c > hsk-client.js",
-    "clean": "rm -f hsk-client.js",
-    "lint": "eslint lib/ test/ || exit 0",
-    "test": "mocha --reporter spec test/*-test.js",
-    "webpack": "webpack --mode production --config webpack.config.js"
+    "lint": "eslint lib/ || exit 0",
+    "test": "mocha --reporter spec test/*-test.js"
   },
   "bin": {
     "hsk-cli": "./bin/hsk-cli",
     "hwallet-cli": "./bin/hwallet-cli"
   },
   "dependencies": {
-    "bcfg": "~0.1.0",
-    "bcurl": "~0.1.0"
+    "bcfg": "~0.1.2",
+    "bcurl": "~0.1.2",
+    "bsert": "~0.0.3"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babelify": "^8.0.0",
-    "browserify": "^16.2.2",
-    "eslint": "^4.19.1",
-    "mocha": "^5.2.0",
-    "uglify-es": "^3.3.9",
-    "uglifyjs-webpack-plugin": "^1.2.5",
-    "webpack": "^4.11.1",
-    "webpack-cli": "^3.0.3"
+    "eslint": "^5.1.0",
+    "mocha": "^5.2.0"
   },
   "engines": {
     "node": ">=8.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }
