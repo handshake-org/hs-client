@@ -14,7 +14,7 @@ const ports = {
 
 class CLI {
   constructor() {
-    this.config = new Config('hskd', {
+    this.config = new Config('hsd', {
       suffix: 'network',
       fallback: 'main',
       alias: {
@@ -37,7 +37,7 @@ class CLI {
       network: 'testnet'
     });
 
-    this.config.open('hskd.conf');
+    this.config.open('hsd.conf');
 
     this.argv = this.config.argv;
     this.network = this.config.str('network', 'main');

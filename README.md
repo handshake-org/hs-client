@@ -1,11 +1,11 @@
-# hsk-client
+# hs-client
 
 REST and RPC clients for handshake.
 
 ## Usage
 
 ``` js
-const {NodeClient, WalletClient} = require('hsk-client');
+const {NodeClient, WalletClient} = require('hs-client');
 ```
 
 ## Contribution and License Agreement

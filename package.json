@@ -1,8 +1,8 @@
 {
-  "name": "hsk-client",
+  "name": "hs-client",
   "version": "0.0.0",
   "private": true,
-  "description": "HSK node and wallet client",
+  "description": "HSD node and wallet client",
   "keywords": [
     "http",
     "request",
@@ -10,25 +10,27 @@
     "websockets"
   ],
   "license": "MIT",
-  "repository": "git://github.com/handshake-org/hsk-client.git",
-  "homepage": "https://github.com/handshake-org/hsk-client",
+  "repository": "git://github.com/handshake-org/hs-client.git",
+  "homepage": "https://github.com/handshake-org/hs-client",
   "bugs": {
-    "url": "https://github.com/handshake-org/hsk-client/issues"
+    "url": "https://github.com/handshake-org/hs-client/issues"
   },
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
-  "main": "./lib/hsk-client.js",
+  "main": "./lib/hs-client.js",
   "scripts": {
     "lint": "eslint lib/ || exit 0",
     "test": "mocha --reporter spec test/*-test.js"
   },
   "bin": {
-    "hsk-cli": "./bin/hsk-cli",
-    "hwallet-cli": "./bin/hwallet-cli"
+    "hsd-cli": "./bin/hsd-cli",
+    "hsd-rpc": "./bin/hsd-rpc",
+    "hsw-cli": "./bin/hsw-cli",
+    "hsw-rpc": "./bin/hsw-rpc"
   },
   "dependencies": {
     "bcfg": "~0.1.2",
     "bcurl": "~0.1.2",
-    "bsert": "~0.0.3"
+    "bsert": "~0.0.4"
   },
   "devDependencies": {
     "eslint": "^5.1.0",
