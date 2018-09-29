@@ -27,12 +27,11 @@
     "hsw-rpc": "./bin/hsw-rpc"
   },
   "dependencies": {
-    "bcfg": "~0.1.2",
-    "bcurl": "~0.1.2",
+    "bcfg": "~0.1.3",
+    "bcurl": "~0.1.3",
     "bsert": "~0.0.4"
   },
   "devDependencies": {
-    "eslint": "^5.1.0",
     "mocha": "^5.2.0"
   },
   "engines": {
