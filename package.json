@@ -1,6 +1,6 @@
 {
-  "name": "hs-client",
-  "version": "0.0.6",
+  "name": "namebase-hs-client",
+  "version": "0.0.0",
   "description": "HSD node and wallet client",
   "keywords": [
     "http",
@@ -9,7 +9,7 @@
     "websockets"
   ],
   "license": "MIT",
-  "repository": "git://github.com/handshake-org/hs-client.git",
+  "repository": "git://github.com/namebasehq/hs-client.git",
   "homepage": "https://github.com/handshake-org/hs-client",
   "bugs": {
     "url": "https://github.com/handshake-org/hs-client/issues"
