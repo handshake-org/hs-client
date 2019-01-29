@@ -1,6 +1,6 @@
 {
   "name": "namebase-hs-client",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "HSD node and wallet client",
   "keywords": [
     "http",
