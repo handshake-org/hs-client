@@ -184,13 +184,6 @@ class CLI {
     this.log(addr);
   }
 
-  async createNested() {
-    const account = this.config.str([0, 'account']);
-    const addr = await this.wallet.createNested(account);
-
-    this.log(addr);
-  }
-
   async getAccounts() {
     const accounts = await this.wallet.getAccounts();
     this.log(accounts);
@@ -540,9 +533,6 @@ class CLI {
       case 'change':
         await this.createChange();
         break;
-      case 'nested':
-        await this.createNested();
-        break;
       case 'retoken':
         await this.retoken();
         break;
@@ -611,7 +601,6 @@ class CLI {
         this.log('  $ account get [account-name]: Get account details.');
         this.log('  $ address: Derive new address.');
         this.log('  $ change: Derive new change address.');
-        this.log('  $ nested: Derive new nested address.');
         this.log('  $ retoken: Create new api key.');
         this.log('  $ send [address] [value]: Send transaction.');
         this.log('  $ mktx [address] [value]: Create transaction.');
