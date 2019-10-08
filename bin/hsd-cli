@@ -64,6 +64,32 @@ class CLI {
     this.log(info);
   }
 
+  async getNameState() {
+    const name = this.config.str(0, '');
+
+    const ns = await this.client.getNameState(name);
+
+    if (!ns){
+      this.log('NameState not found.');
+      return;
+    }
+
+    this.log(ns);
+  }
+
+  async getNameResource() {
+    const name = this.config.str(0, '');
+
+    const resource = await this.client.getNameResource(name);
+
+    if (!resource){
+      this.log('Resouce not found.');
+      return;
+    }
+
+    this.log(resource);
+  }
+
   async getTX() {
     const hash = this.config.str(0, '');
 
@@ -183,6 +209,12 @@ class CLI {
       case 'mempool':
         await this.getMempool();
         break;
+      case 'namestate':
+        await this.getNameState();
+        break;
+      case 'resource':
+        await this.getNameResource();
+        break;
       case 'tx':
         await this.getTX();
         break;
@@ -204,6 +236,8 @@ class CLI {
         this.log('  $ info: Get server info.');
         this.log('  $ broadcast [tx-hex]: Broadcast transaction.');
         this.log('  $ mempool: Get mempool snapshot.');
+        this.log('  $ namestate [name]: View NameState.');
+        this.log('  $ resource [name]: View Resource.');
         this.log('  $ tx [hash/address]: View transactions.');
         this.log('  $ coin [hash+index/address]: View coins.');
         this.log('  $ block [hash/height]: View block.');
