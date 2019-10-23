@@ -327,10 +327,10 @@ class CLI {
 
   async signTX() {
     const passphrase = this.config.str('passphrase');
-    const raw = this.config.str([0, 'tx']);
-    const tx = await this.wallet.sign(raw, { passphrase });
+    const tx = this.config.str([0, 'tx']);
+    const signedTx = await this.wallet.sign({tx, passphrase});
 
-    this.log(tx);
+    this.log(signedTx);
   }
 
   async zapWallet() {
