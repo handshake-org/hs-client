@@ -33,10 +33,6 @@ class CLI {
       env: true
     });
 
-    this.config.inject({
-      network: 'testnet'
-    });
-
     this.config.open('hsd.conf');
 
     this.argv = this.config.argv;
