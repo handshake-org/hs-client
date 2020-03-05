@@ -489,9 +489,6 @@ class CLI {
       case 'get':
         await this.getWallet();
         break;
-      case 'master':
-        await this.getMaster();
-        break;
       case 'shared':
         if (this.argv[0] === 'add') {
           this.argv.shift();
@@ -600,7 +597,6 @@ class CLI {
         this.log('  $ listen: Listen for events.');
         this.log('  $ mkwallet [id]: Create wallet.');
         this.log('  $ get: View wallet.');
-        this.log('  $ master: View wallet master key.');
         this.log('  $ shared add [xpubkey]: Add key to wallet.');
         this.log('  $ shared remove [xpubkey]: Remove key from wallet.');
         this.log('  $ balance: Get wallet balance.');
@@ -640,6 +636,7 @@ class CLI {
   async open() {
     switch (this.argv[0]) {
       case 'wallets':
+      case 'master':
       case 'resend':
       case 'backup':
       case 'rpc':
@@ -652,6 +649,9 @@ class CLI {
       switch (this.argv.shift()) {
         case 'wallets':
           await this.getWallets();
+          break;
+        case 'master':
+          await this.getMaster();
           break;
         case 'resend':
           await this.resend();
@@ -666,6 +666,7 @@ class CLI {
           this.log('Unrecognized command.');
           this.log('Commands:');
           this.log('  $ wallets: List all wallets.');
+          this.log('  $ master: View wallet master key.');
           this.log('  $ resend: Resend pending transactions.');
           this.log('  $ backup [path]: Backup the wallet db.');
           this.log('  $ rpc [command] [args]: Execute RPC command.');
