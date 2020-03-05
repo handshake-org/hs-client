@@ -483,6 +483,9 @@ class CLI {
       case 'listen':
         await this.listenWallet();
         break;
+      case 'mkwallet':
+        await this.createWallet();
+        break;
       case 'get':
         await this.getWallet();
         break;
@@ -595,6 +598,7 @@ class CLI {
         this.log('Unrecognized command.');
         this.log('Commands:');
         this.log('  $ listen: Listen for events.');
+        this.log('  $ mkwallet [id]: Create wallet.');
         this.log('  $ get: View wallet.');
         this.log('  $ master: View wallet master key.');
         this.log('  $ shared add [xpubkey]: Add key to wallet.');
@@ -636,7 +640,6 @@ class CLI {
   async open() {
     switch (this.argv[0]) {
       case 'wallets':
-      case 'mkwallet':
       case 'resend':
       case 'backup':
       case 'rpc':
@@ -649,9 +652,6 @@ class CLI {
       switch (this.argv.shift()) {
         case 'wallets':
           await this.getWallets();
-          break;
-        case 'mkwallet':
-          await this.createWallet();
           break;
         case 'resend':
           await this.resend();
@@ -666,7 +666,6 @@ class CLI {
           this.log('Unrecognized command.');
           this.log('Commands:');
           this.log('  $ wallets: List all wallets.');
-          this.log('  $ mkwallet [id]: Create wallet.');
           this.log('  $ resend: Resend pending transactions.');
           this.log('  $ backup [path]: Backup the wallet db.');
           this.log('  $ rpc [command] [args]: Execute RPC command.');
