@@ -45,7 +45,8 @@ class CLI {
       host: this.config.str('http-host'),
       port: this.config.uint('http-port')
         || ports[this.network]
-        || ports.main
+        || ports.main,
+      timeout: this.config.uint('timeout')
     });
   }
 

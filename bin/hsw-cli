@@ -50,6 +50,7 @@ class CLI {
       port: this.config.uint('http-port')
         || ports[this.network]
         || ports.main,
+      timeout: this.config.uint('timeout'),
       token
     });
 
