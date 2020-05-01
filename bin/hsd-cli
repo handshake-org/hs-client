@@ -67,10 +67,10 @@ class CLI {
   async getNameState() {
     const name = this.config.str(0, '');
 
-    const ns = await this.client.getNameState(name);
+    const ns = await this.client.execute('getnameinfo', [name]);
 
     if (!ns){
-      this.log('NameState not found.');
+      this.log('Name state not found.');
       return;
     }
 
@@ -80,10 +80,10 @@ class CLI {
   async getNameResource() {
     const name = this.config.str(0, '');
 
-    const resource = await this.client.getNameResource(name);
+    const resource = await this.client.execute('getnameresource', [name]);
 
     if (!resource){
-      this.log('Resouce not found.');
+      this.log('Resource not found.');
       return;
     }
 
