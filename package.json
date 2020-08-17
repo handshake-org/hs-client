@@ -1,6 +1,6 @@
 {
   "name": "hs-client",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "HSD node and wallet client",
   "keywords": [
     "http",
