@@ -34,10 +34,6 @@ class CLI {
       env: true
     });
 
-    this.config.inject({
-      network: 'testnet'
-    });
-
     this.config.open('hsw.conf');
 
     this.argv = this.config.argv;
@@ -54,6 +50,7 @@ class CLI {
       port: this.config.uint('http-port')
         || ports[this.network]
         || ports.main,
+      timeout: this.config.uint('timeout'),
       token
     });
 
@@ -327,10 +324,10 @@ class CLI {
 
   async signTX() {
     const passphrase = this.config.str('passphrase');
-    const raw = this.config.str([0, 'tx']);
-    const tx = await this.wallet.sign(raw, { passphrase });
+    const tx = this.config.str([0, 'tx']);
+    const signedTx = await this.wallet.sign({tx, passphrase});
 
-    this.log(tx);
+    this.log(signedTx);
   }
 
   async zapWallet() {
@@ -340,6 +337,14 @@ class CLI {
     await this.wallet.zap(account, age);
 
     this.log('Zapped!');
+  }
+
+  async abandonTX() {
+    const hash = this.config.str(0);
+
+    await this.wallet.abandon(hash);
+
+    this.log('Abandoned tx: ' + hash);
   }
 
   async viewTX() {
@@ -555,6 +560,9 @@ class CLI {
       case 'zap':
         await this.zapWallet();
         break;
+      case 'abandon':
+        await this.abandonTX();
+        break;
       case 'tx':
         await this.getDetails();
         break;
@@ -616,6 +624,7 @@ class CLI {
         this.log('  $ mktx [address] [value]: Create transaction.');
         this.log('  $ sign [tx-hex]: Sign transaction.');
         this.log('  $ zap [age?]: Zap pending wallet TXs.');
+        this.log('  $ abandon [hash]: Abandon a transaction.');
         this.log('  $ tx [hash]: View transaction details.');
         this.log('  $ blocks: List wallet blocks.');
         this.log('  $ block [height]: View wallet block.');
@@ -668,7 +677,7 @@ class CLI {
           this.log('Unrecognized command.');
           this.log('Commands:');
           this.log('  $ wallets: List all wallets.');
-          this.log('  $ wallet create [id]: Create wallet.');
+          this.log('  $ mkwallet [id]: Create wallet.');
           this.log('  $ resend: Resend pending transactions.');
           this.log('  $ backup [path]: Backup the wallet db.');
           this.log('  $ rpc [command] [args]: Execute RPC command.');

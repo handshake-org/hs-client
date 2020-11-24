@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "bcfg": "~0.1.6",
-    "bcurl": "~0.1.6",
+    "bcurl": "~0.1.9",
     "bsert": "~0.0.10"
   },
   "devDependencies": {
-    "bmocha": "^2.1.0"
+    "bmocha": "^2.1.5"
   },
   "engines": {
     "node": ">=8.0.0"
