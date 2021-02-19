@@ -619,7 +619,6 @@ class CLI {
         this.log('  $ pending: View pending TXs.');
         this.log('  $ rescan [height]: Rescan for transactions.');
         this.log('  $ resend: Resend pending transactions.');
-        this.log('  $ resend: Resend pending transactions.');
         this.log('  $ retoken: Create new api key.');
         this.log('  $ rpc [command] [args]: Execute RPC command.')
         this.log('  $ send [address] [value]: Send transaction.');
