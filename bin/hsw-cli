@@ -645,7 +645,7 @@ class CLI {
         this.log('  $ zap [age?]: Zap pending wallet TXs.');
         this.log('');
         this.log('Admin commands, they require api-token if node is run with wallet-wallet-auth flag.');
-        this.log('Otherwise the can be called as the above ones, without any additional parameter.');
+        this.log('Otherwise they can be called as the above ones, without any additional parameter.');
         this.log('  $ backup [path]: Backup the wallet db.');
         this.log('  $ mkwallet [id]: Create wallet.');
         this.log('  $ rpc [command] [args]: Execute RPC command.');
@@ -657,7 +657,7 @@ class CLI {
         this.log('  --passphrase [passphrase]: For signing/account-creation.');
         this.log('  --account [account-name]: Account name.');
         this.log('  --api-token [token]: API or Admin token to run commands');
-        this.log('For additional information and complete list of commands visit https://hsd-dev.org/api-docs/');
+        this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
         break;
     }
   }

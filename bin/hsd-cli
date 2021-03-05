@@ -228,7 +228,7 @@ class CLI {
         this.log('  $ header [hash/height]: View block header.');
         this.log('  $ reset [height/hash]: Reset chain to desired block.');
         this.log('  $ rpc [command] [args]: Execute RPC command.');
-        this.log('For additional information and complete list of commands visit https://hsd-dev.org/api-docs/');
+        this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
         break;
     }
   }
