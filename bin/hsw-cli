@@ -592,15 +592,31 @@ class CLI {
       case 'rescan':
         await this.rescan();
         break;
+      case 'wallets':
+        await this.getWallets();
+        break;
+      case 'mkwallet':
+        await this.createWallet();
+        break;
+      case 'resend':
+        await this.resend();
+        break;
+      case 'backup':
+        await this.backup();
+        break;
+      case 'rpc':
+        await this.rpc();
+        break;
+
       default:
         this.log('Unrecognized command.');
+        this.log('');
         this.log('Commands:');
         this.log('  $ abandon [hash]: Abandon a transaction.');
         this.log('  $ account create [account-name]: Create account.');
         this.log('  $ account get [account-name]: Get account details.');
         this.log('  $ account list: List account names.');
         this.log('  $ address: Derive new address.');
-        this.log('  $ backup [path]: Backup the wallet db.');
         this.log('  $ balance: Get wallet balance.');
         this.log('  $ block [height]: View wallet block.');
         this.log('  $ blocks: List wallet blocks.');
@@ -615,12 +631,9 @@ class CLI {
         this.log('  $ lock: Lock wallet.');
         this.log('  $ master: View wallet master key.');
         this.log('  $ mktx [address] [value]: Create transaction.');
-        this.log('  $ mkwallet [id]: Create wallet.');
         this.log('  $ pending: View pending TXs.');
         this.log('  $ rescan [height]: Rescan for transactions.');
-        this.log('  $ resend: Resend pending transactions.');
         this.log('  $ retoken: Create new api key.');
-        this.log('  $ rpc [command] [args]: Execute RPC command.')
         this.log('  $ send [address] [value]: Send transaction.');
         this.log('  $ shared add [xpubkey]: Add key to wallet.');
         this.log('  $ shared remove [xpubkey]: Remove key from wallet.');
@@ -628,60 +641,25 @@ class CLI {
         this.log('  $ tx [hash]: View transaction details.');
         this.log('  $ unlock [passphrase] [timeout?]: Unlock wallet.');
         this.log('  $ view [tx-hex]: Parse and view transaction.');
-        this.log('  $ wallets: List all wallets.');
         this.log('  $ watch [address]: Import an address.');
         this.log('  $ zap [age?]: Zap pending wallet TXs.');
-        this.log('Other Options:');
+        this.log('');
+        this.log('Admin commands, they require api-token if node is run with wallet-wallet-auth flag.');
+        this.log('Otherwise the can be called as the above ones, without any additional parameter.');
+        this.log('  $ backup [path]: Backup the wallet db.');
+        this.log('  $ mkwallet [id]: Create wallet.');
+        this.log('  $ rpc [command] [args]: Execute RPC command.');
+        this.log('  $ resend: Resend pending transactions.');
+        this.log('  $ wallets: List all wallets.');
+        this.log('');
+        this.log('Other options:');
         this.log('  --id [wallet id]: Wallet id.');
         this.log('  --passphrase [passphrase]: For signing/account-creation.');
         this.log('  --account [account-name]: Account name.');
+        this.log('  --api-token [token]: API or Admin token to run commands');
+        this.log('For additional information and complete list of commands visit https://hsd-dev.org/api-docs/');
         break;
     }
-  }
-
-  async open() {
-    switch (this.argv[0]) {
-      case 'wallets':
-      case 'mkwallet':
-      case 'resend':
-      case 'backup':
-      case 'rpc':
-        this.argv.unshift('admin');
-        break;
-    }
-
-    if (this.argv[0] === 'admin') {
-      this.argv.shift();
-      switch (this.argv.shift()) {
-        case 'wallets':
-          await this.getWallets();
-          break;
-        case 'mkwallet':
-          await this.createWallet();
-          break;
-        case 'resend':
-          await this.resend();
-          break;
-        case 'backup':
-          await this.backup();
-          break;
-        case 'rpc':
-          await this.rpc();
-          break;
-        default:
-          this.log('Unrecognized command.');
-          this.log('Commands:');
-          this.log('  $ wallets: List all wallets.');
-          this.log('  $ mkwallet [id]: Create wallet.');
-          this.log('  $ resend: Resend pending transactions.');
-          this.log('  $ backup [path]: Backup the wallet db.');
-          this.log('  $ rpc [command] [args]: Execute RPC command.');
-          break;
-      }
-      return;
-    }
-
-    return this.handleWallet();
   }
 
   async destroy() {
@@ -692,7 +670,7 @@ class CLI {
 
 (async () => {
   const cli = new CLI();
-  await cli.open();
+  await cli.handleWallet();
   await cli.destroy();
 })().catch((err) => {
   console.error(err.stack);
