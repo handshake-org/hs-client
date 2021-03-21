@@ -40,6 +40,7 @@ class CLI {
     this.network = this.config.str('network', 'main');
 
     const id = this.config.str('id', 'primary');
+    // const account = this.config.str('account', 'default');
     const token = this.config.str('token', '');
 
     this.client = new WalletClient({
@@ -168,7 +169,10 @@ class CLI {
   }
 
   async createAddress() {
-    const account = this.config.str([0, 'account']);
+    const account = this.config.str('account', 'default');
+    console.log(account);
+    // const account2 = this.config.str([0, 'account']);
+    // console.log(account2);
     const addr = await this.wallet.createAddress(account);
 
     this.log(addr);
@@ -586,8 +590,11 @@ class CLI {
       case 'unlock':
         await this.unlock();
         break;
-      case 'resend':
+      case 'resendwallet':
         await this.resendWallet();
+        break;
+      case 'resend':
+        await this.resend();
         break;
       case 'rescan':
         await this.rescan();
@@ -616,11 +623,11 @@ class CLI {
         this.log('  $ account create [account-name]: Create account.');
         this.log('  $ account get [account-name]: Get account details.');
         this.log('  $ account list: List account names.');
-        this.log('  $ address: Derive new address.');
+        this.log('  $ address [account-name]: Derive new address.');
         this.log('  $ balance: Get wallet balance.');
         this.log('  $ block [height]: View wallet block.');
         this.log('  $ blocks: List wallet blocks.');
-        this.log('  $ change: Derive new change address.');
+        this.log('  $ change [account-name]: Derive new change address.');
         this.log('  $ coins: View wallet coins.');
         this.log('  $ dump [address]: Get wallet key WIF by address.');
         this.log('  $ get: View wallet.');
@@ -629,34 +636,36 @@ class CLI {
         this.log('  $ key [address]: Get wallet key by address.');
         this.log('  $ listen: Listen for events.');
         this.log('  $ lock: Lock wallet.');
-        this.log('  $ master: View wallet master key.');
         this.log('  $ mktx [address] [value]: Create transaction.');
         this.log('  $ pending: View pending TXs.');
-        this.log('  $ rescan [height]: Rescan for transactions.');
         this.log('  $ retoken: Create new api key.');
         this.log('  $ send [address] [value]: Send transaction.');
         this.log('  $ shared add [xpubkey]: Add key to wallet.');
+        this.log('  $ resendwallet [id]: Resend pending transactions for a single wallet.');
         this.log('  $ shared remove [xpubkey]: Remove key from wallet.');
         this.log('  $ sign [tx-hex]: Sign transaction.');
         this.log('  $ tx [hash]: View transaction details.');
         this.log('  $ unlock [passphrase] [timeout?]: Unlock wallet.');
         this.log('  $ view [tx-hex]: Parse and view transaction.');
         this.log('  $ watch [address]: Import an address.');
-        this.log('  $ zap [age?]: Zap pending wallet TXs.');
+        this.log('  $ zap [age]: Zap pending wallet TXs.');
         this.log('');
-        this.log('Admin commands, they require api-token if node is run with wallet-wallet-auth flag.');
-        this.log('Otherwise they can be called as the above ones, without any additional parameter.');
+        this.log('If node is run with wallet-auth flag, wallet commands require authorization token.');
+        this.log('Admin commands require admin permissions for provided authorization token:');
         this.log('  $ backup [path]: Backup the wallet db.');
+        this.log('  $ master: View wallet master key.');
         this.log('  $ mkwallet [id]: Create wallet.');
+        this.log('  $ rescan [height]: Rescan for transactions.');
+        this.log('  $ resend: Resend pending transactions for all wallets.');
         this.log('  $ rpc [command] [args]: Execute RPC command.');
-        this.log('  $ resend: Resend pending transactions.');
         this.log('  $ wallets: List all wallets.');
         this.log('');
         this.log('Other options:');
         this.log('  --id [wallet id]: Wallet id.');
         this.log('  --passphrase [passphrase]: For signing/account-creation.');
         this.log('  --account [account-name]: Account name.');
-        this.log('  --api-token [token]: API or Admin token to run commands');
+        this.log('  --token [token]: Wallet-specific authorization token.');
+        this.log('  --api-key [key]: General API authorization key.');
         this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
         break;
     }
