@@ -481,41 +481,8 @@ class CLI {
 
   async handleWallet() {
     switch (this.argv.shift()) {
-      case 'listen':
-        await this.listenWallet();
-        break;
-      case 'get':
-        await this.getWallet();
-        break;
-      case 'master':
-        await this.getMaster();
-        break;
-      case 'shared':
-        if (this.argv[0] === 'add') {
-          this.argv.shift();
-          await this.addSharedKey();
-          break;
-        }
-        if (this.argv[0] === 'remove') {
-          this.argv.shift();
-          await this.removeSharedKey();
-          break;
-        }
-        if (this.argv[0] === 'list')
-          this.argv.shift();
-        await this.getSharedKeys();
-        break;
-      case 'balance':
-        await this.getBalance();
-        break;
-      case 'history':
-        await this.getWalletHistory();
-        break;
-      case 'pending':
-        await this.getWalletPending();
-        break;
-      case 'coins':
-        await this.getWalletCoins();
+      case 'abandon':
+        await this.abandonTX();
         break;
       case 'account':
         if (this.argv[0] === 'list') {
@@ -528,86 +495,120 @@ class CLI {
           await this.createAccount();
           break;
         }
-        if (this.argv[0] === 'get')
+        if (this.argv[0] === 'get') {
           this.argv.shift();
+        }
         await this.getAccount();
         break;
       case 'address':
         await this.createAddress();
         break;
-      case 'change':
-        await this.createChange();
+      case 'backup':
+        await this.backup();
         break;
-      case 'retoken':
-        await this.retoken();
-        break;
-      case 'sign':
-        await this.signTX();
-        break;
-      case 'mktx':
-        await this.createTX();
-        break;
-      case 'send':
-        await this.sendTX();
-        break;
-      case 'zap':
-        await this.zapWallet();
-        break;
-      case 'abandon':
-        await this.abandonTX();
-        break;
-      case 'tx':
-        await this.getDetails();
-        break;
-      case 'blocks':
-        await this.getWalletBlocks();
+      case 'balance':
+        await this.getBalance();
         break;
       case 'block':
         await this.getWalletBlock();
         break;
-      case 'view':
-        await this.viewTX();
+      case 'blocks':
+        await this.getWalletBlocks();
         break;
-      case 'import':
-        await this.importKey();
+      case 'change':
+        await this.createChange();
         break;
-      case 'watch':
-        await this.importAddress();
-        break;
-      case 'key':
-        await this.getKey();
+      case 'coins':
+        await this.getWalletCoins();
         break;
       case 'dump':
         await this.getWIF();
         break;
+      case 'get':
+        await this.getWallet();
+        break;
+      case 'history':
+        await this.getWalletHistory();
+        break;
+      case 'import':
+        await this.importKey();
+        break;
+      case 'key':
+        await this.getKey();
+        break;
+      case 'listen':
+        await this.listenWallet();
+        break;
       case 'lock':
         await this.lock();
         break;
-      case 'unlock':
-        await this.unlock();
+      case 'master':
+        await this.getMaster();
         break;
-      case 'resendwallet':
-        await this.resendWallet();
-        break;
-      case 'resend':
-        await this.resend();
-        break;
-      case 'rescan':
-        await this.rescan();
-        break;
-      case 'wallets':
-        await this.getWallets();
+      case 'mktx':
+        await this.createTX();
         break;
       case 'mkwallet':
         await this.createWallet();
         break;
-      case 'backup':
-        await this.backup();
+      case 'pending':
+        await this.getWalletPending();
+        break;
+      case 'rescan':
+        await this.rescan();
+        break;
+      case 'resend':
+        await this.resend();
+        break;
+      case 'resendwallet':
+        await this.resendWallet();
+        break;
+      case 'retoken':
+        await this.retoken();
         break;
       case 'rpc':
         await this.rpc();
         break;
-
+      case 'send':
+        await this.sendTX();
+        break;
+      case 'shared':
+        if (this.argv[0] === 'add') {
+          this.argv.shift();
+          await this.addSharedKey();
+          break;
+        }
+        if (this.argv[0] === 'remove') {
+          this.argv.shift();
+          await this.removeSharedKey();
+          break;
+        }
+        if (this.argv[0] === 'list') {
+          this.argv.shift();
+        }
+        await this.getSharedKeys();
+        break;
+      case 'sign':
+        await this.signTX();
+        break;
+      case 'tx':
+        await this.getDetails();
+        break;
+      case 'unlock':
+        await this.unlock();
+        break;
+      case 'view':
+        await this.viewTX();
+        break;
+      case 'wallets':
+        await this.getWallets();
+        break;
+      case 'watch':
+        await this.importAddress();
+        break;
+      case 'zap':
+        await this.zapWallet();
+        break;
       default:
         this.log('Unrecognized command.');
         this.log('');
@@ -631,10 +632,10 @@ class CLI {
         this.log('  $ lock: Lock wallet.');
         this.log('  $ mktx [address] [value]: Create transaction.');
         this.log('  $ pending: View pending TXs.');
+        this.log('  $ resendwallet [id]: Resend pending transactions for a single wallet.');
         this.log('  $ retoken: Create new api key.');
         this.log('  $ send [address] [value]: Send transaction.');
         this.log('  $ shared add [xpubkey]: Add key to wallet.');
-        this.log('  $ resendwallet [id]: Resend pending transactions for a single wallet.');
         this.log('  $ shared remove [xpubkey]: Remove key from wallet.');
         this.log('  $ sign [tx-hex]: Sign transaction.');
         this.log('  $ tx [hash]: View transaction details.');
