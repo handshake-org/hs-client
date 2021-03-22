@@ -168,6 +168,7 @@ class CLI {
   }
 
   async createAddress() {
+    const account = this.config.str([0, 'account']);
     const addr = await this.wallet.createAddress(account);
 
     this.log(addr);
