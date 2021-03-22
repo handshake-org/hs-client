@@ -601,9 +601,6 @@ class CLI {
       case 'mkwallet':
         await this.createWallet();
         break;
-      case 'resend':
-        await this.resend();
-        break;
       case 'backup':
         await this.backup();
         break;
@@ -660,7 +657,7 @@ class CLI {
         this.log('  --id [wallet id]: Wallet id.');
         this.log('  --passphrase [passphrase]: For signing/account-creation.');
         this.log('  --account [account-name]: Account name.');
-        this.log('  --token [token]: Wallet-specific authorization token.');
+        this.log('  --token [token]: Wallet-specific or admin authorization token.');
         this.log('  --api-key [key]: General API authorization key.');
         this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
         break;
