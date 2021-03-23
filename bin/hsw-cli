@@ -495,9 +495,8 @@ class CLI {
           await this.createAccount();
           break;
         }
-        if (this.argv[0] === 'get') {
+        if (this.argv[0] === 'get') 
           this.argv.shift();
-        }
         await this.getAccount();
         break;
       case 'address':
@@ -583,9 +582,8 @@ class CLI {
           await this.removeSharedKey();
           break;
         }
-        if (this.argv[0] === 'list') {
+        if (this.argv[0] === 'list') 
           this.argv.shift();
-        }
         await this.getSharedKeys();
         break;
       case 'sign':
