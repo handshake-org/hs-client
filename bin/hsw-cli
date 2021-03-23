@@ -633,8 +633,9 @@ class CLI {
         this.log('  $ resendwallet [id]: Resend pending transactions for a single wallet.');
         this.log('  $ retoken: Create new api key.');
         this.log('  $ send [address] [value]: Send transaction.');
-        this.log('  $ shared add [xpubkey]: Add key to wallet.');
-        this.log('  $ shared remove [xpubkey]: Remove key from wallet.');
+        this.log('  $ shared add [account-name] [xpubkey]: Add key to account.');
+        this.log('  $ shared remove [account-name] [xpubkey]: Remove key from account.');
+        this.log('  $ shared list [account-name]: List keys in account.');
         this.log('  $ sign [tx-hex]: Sign transaction.');
         this.log('  $ tx [hash]: View transaction details.');
         this.log('  $ unlock [passphrase] [timeout?]: Unlock wallet.');
