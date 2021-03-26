@@ -13,6 +13,64 @@ const ports = {
   simnet: 15039
 };
 
+const HELP = `
+Unrecognized command.
+
+Commands:
+  $ abandon [hash]: Abandon a transaction.
+  $ account create [account-name]: Create account.
+  $ account get [account-name]: Get account details.
+  $ account list: List account names.
+  $ address [account-name]: Derive new address.
+  $ balance: Get wallet balance.
+  $ block [height]: View wallet block.
+  $ blocks: List wallet blocks.
+  $ change [account-name]: Derive new change address.
+  $ coins: View wallet coins.
+  $ dump [address]: Get wallet key WIF by address.
+  $ get: View wallet.
+  $ history: View TX history.
+  $ import [wif|hex]: Import private or public key.
+  $ key [address]: Get wallet key by address.
+  $ listen: Listen for events.
+  $ lock: Lock wallet.
+  $ mktx [address] [value]: Create transaction.
+  $ pending: View pending TXs.
+  $ resendwallet [id]: Resend pending transactions for a single wallet.
+  $ retoken: Create new api key.
+  $ send [address] [value]: Send transaction.
+  $ shared add [account-name] [xpubkey]: Add key to account.
+  $ shared remove [account-name] [xpubkey]: Remove key from account.
+  $ shared list [account-name]: List keys in account.
+  $ sign [tx-hex]: Sign transaction.
+  $ tx [hash]: View transaction details.
+  $ unlock [passphrase] [timeout?]: Unlock wallet.
+  $ view [tx-hex]: Parse and view transaction.
+  $ watch [address]: Import an address.
+  $ zap [age]: Zap pending wallet TXs.
+
+If node is run with wallet-auth flag, then wallet commands
+require authorization token.
+Admin commands require admin permissions for provided authorization token:
+  $ backup [path]: Backup the wallet db.
+  $ master: View wallet master key.
+  $ mkwallet [id]: Create wallet.
+  $ rescan [height]: Rescan for transactions.
+  $ resend: Resend pending transactions for all wallets.
+  $ rpc [command] [args]: Execute RPC command.
+  $ wallets: List all wallets.
+
+Other options:
+  --id [wallet id]: Wallet id.
+  --passphrase [passphrase]: For signing/account-creation.
+  --account [account-name]: Account name.
+  --token [token]: Wallet-specific or admin authorization token.
+  --api-key [key]: General API authorization key.
+
+For additional information and a complete list of commands
+visit https://hsd-dev.org/api-docs/
+`;
+
 class CLI {
   constructor() {
     this.config = new Config('hsd', {
@@ -495,7 +553,7 @@ class CLI {
           await this.createAccount();
           break;
         }
-        if (this.argv[0] === 'get') 
+        if (this.argv[0] === 'get')
           this.argv.shift();
         await this.getAccount();
         break;
@@ -582,7 +640,7 @@ class CLI {
           await this.removeSharedKey();
           break;
         }
-        if (this.argv[0] === 'list') 
+        if (this.argv[0] === 'list')
           this.argv.shift();
         await this.getSharedKeys();
         break;
@@ -608,58 +666,7 @@ class CLI {
         await this.zapWallet();
         break;
       default:
-        this.log('Unrecognized command.');
-        this.log('');
-        this.log('Commands:');
-        this.log('  $ abandon [hash]: Abandon a transaction.');
-        this.log('  $ account create [account-name]: Create account.');
-        this.log('  $ account get [account-name]: Get account details.');
-        this.log('  $ account list: List account names.');
-        this.log('  $ address [account-name]: Derive new address.');
-        this.log('  $ balance: Get wallet balance.');
-        this.log('  $ block [height]: View wallet block.');
-        this.log('  $ blocks: List wallet blocks.');
-        this.log('  $ change [account-name]: Derive new change address.');
-        this.log('  $ coins: View wallet coins.');
-        this.log('  $ dump [address]: Get wallet key WIF by address.');
-        this.log('  $ get: View wallet.');
-        this.log('  $ history: View TX history.');
-        this.log('  $ import [wif|hex]: Import private or public key.');
-        this.log('  $ key [address]: Get wallet key by address.');
-        this.log('  $ listen: Listen for events.');
-        this.log('  $ lock: Lock wallet.');
-        this.log('  $ mktx [address] [value]: Create transaction.');
-        this.log('  $ pending: View pending TXs.');
-        this.log('  $ resendwallet [id]: Resend pending transactions for a single wallet.');
-        this.log('  $ retoken: Create new api key.');
-        this.log('  $ send [address] [value]: Send transaction.');
-        this.log('  $ shared add [account-name] [xpubkey]: Add key to account.');
-        this.log('  $ shared remove [account-name] [xpubkey]: Remove key from account.');
-        this.log('  $ shared list [account-name]: List keys in account.');
-        this.log('  $ sign [tx-hex]: Sign transaction.');
-        this.log('  $ tx [hash]: View transaction details.');
-        this.log('  $ unlock [passphrase] [timeout?]: Unlock wallet.');
-        this.log('  $ view [tx-hex]: Parse and view transaction.');
-        this.log('  $ watch [address]: Import an address.');
-        this.log('  $ zap [age]: Zap pending wallet TXs.');
-        this.log('');
-        this.log('If node is run with wallet-auth flag, wallet commands require authorization token.');
-        this.log('Admin commands require admin permissions for provided authorization token:');
-        this.log('  $ backup [path]: Backup the wallet db.');
-        this.log('  $ master: View wallet master key.');
-        this.log('  $ mkwallet [id]: Create wallet.');
-        this.log('  $ rescan [height]: Rescan for transactions.');
-        this.log('  $ resend: Resend pending transactions for all wallets.');
-        this.log('  $ rpc [command] [args]: Execute RPC command.');
-        this.log('  $ wallets: List all wallets.');
-        this.log('');
-        this.log('Other options:');
-        this.log('  --id [wallet id]: Wallet id.');
-        this.log('  --passphrase [passphrase]: For signing/account-creation.');
-        this.log('  --account [account-name]: Account name.');
-        this.log('  --token [token]: Wallet-specific or admin authorization token.');
-        this.log('  --api-key [key]: General API authorization key.');
-        this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
+        process.stdout.write(HELP + '\n');
         break;
     }
   }
