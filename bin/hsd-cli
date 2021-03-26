@@ -12,6 +12,23 @@ const ports = {
   simnet: 15037
 };
 
+const HELP = `
+Commands:
+  $ block [hash/height]: View block.
+  $ broadcast [tx-hex]: Broadcast transaction.
+  $ coin [hash+index/address]: View coins.
+  $ header [hash/height]: View block header.
+  $ help: Show help message.
+  $ info: Get server info.
+  $ mempool: Get mempool snapshot.
+  $ reset [height/hash]: Reset chain to desired block.
+  $ rpc [command] [args]: Execute RPC command.
+  $ tx [hash/address]: View transactions.
+
+For additional information and a complete list of commands
+visit https://hsd-dev.org/api-docs/
+`;
+
 class CLI {
   constructor() {
     this.config = new Config('hsd', {
@@ -188,26 +205,26 @@ class CLI {
 
   async open() {
     switch (this.argv.shift()) {
-      case 'info':
-        await this.getInfo();
+      case 'block':
+        await this.getBlock();
         break;
       case 'broadcast':
         await this.broadcast();
         break;
-      case 'mempool':
-        await this.getMempool();
-        break;
-      case 'tx':
-        await this.getTX();
-        break;
       case 'coin':
         await this.getCoin();
         break;
-      case 'block':
-        await this.getBlock();
-        break;
       case 'header':
         await this.getBlockHeader();
+        break;
+      case 'help':
+        process.stdout.write(HELP + '\n');
+        break;
+      case 'info':
+        await this.getInfo();
+        break;
+      case 'mempool':
+        await this.getMempool();
         break;
       case 'reset':
         await this.reset();
@@ -215,20 +232,12 @@ class CLI {
       case 'rpc':
         await this.rpc();
         break;
+      case 'tx':
+        await this.getTX();
+        break;
       default:
-        this.log('Unrecognized command.');
-
-        this.log('Commands:');
-        this.log('  $ info: Get server info.');
-        this.log('  $ broadcast [tx-hex]: Broadcast transaction.');
-        this.log('  $ mempool: Get mempool snapshot.');
-        this.log('  $ tx [hash/address]: View transactions.');
-        this.log('  $ coin [hash+index/address]: View coins.');
-        this.log('  $ block [hash/height]: View block.');
-        this.log('  $ header [hash/height]: View block header.');
-        this.log('  $ reset [height/hash]: Reset chain to desired block.');
-        this.log('  $ rpc [command] [args]: Execute RPC command.');
-        this.log('For additional information and a complete list of commands visit https://hsd-dev.org/api-docs/');
+        process.stdout.write('Unrecognized command.\n');
+        process.stdout.write(HELP + '\n');
         break;
     }
   }
