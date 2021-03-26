@@ -17,7 +17,7 @@
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
   "main": "./lib/hs-client.js",
   "scripts": {
-    "lint": "eslint lib/ || exit 0",
+    "lint": "eslint $(cat .eslintfiles)",
     "test": "bmocha --reporter spec test/*-test.js"
   },
   "bin": {
