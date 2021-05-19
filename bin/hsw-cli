@@ -510,6 +510,10 @@ class CLI {
 
   async rpc() {
     const method = this.argv.shift();
+    if (!method) {
+      this.log('Missing RPC method');
+      return;
+    }
     const params = [];
 
     for (const arg of this.argv) {
