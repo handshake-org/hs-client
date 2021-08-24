@@ -136,6 +136,7 @@ class CLI {
       n: this.config.uint('n'),
       witness: this.config.bool('witness'),
       passphrase: this.config.str('passphrase'),
+      bip39Passphrase: this.config.str('bip39Passphrase'),
       watchOnly: this.config.has('key') ? true : this.config.bool('watch'),
       accountKey: this.config.str('key')
     };
