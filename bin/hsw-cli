@@ -138,7 +138,8 @@ class CLI {
       passphrase: this.config.str('passphrase'),
       bip39Passphrase: this.config.str('bip39Passphrase'),
       watchOnly: this.config.has('key') ? true : this.config.bool('watch'),
-      accountKey: this.config.str('key')
+      accountKey: this.config.str('key'),
+      language: this.config.str('language')
     };
 
     const wallet = await this.client.createWallet(id, options);
