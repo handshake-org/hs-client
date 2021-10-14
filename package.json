@@ -1,6 +1,6 @@
 {
   "name": "hs-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "HSD node and wallet client",
   "keywords": [
     "http",
@@ -27,7 +27,7 @@
     "hsw-rpc": "./bin/hsw-rpc"
   },
   "dependencies": {
-    "bcfg": "~0.1.6",
+    "bcfg": "~0.1.7",
     "bcurl": "~0.1.9",
     "bsert": "~0.0.10"
   },
