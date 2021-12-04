@@ -34,6 +34,7 @@ Commands:
   $ listen: Listen for events.
   $ lock: Lock wallet.
   $ mktx [address] [value]: Create transaction.
+  $ mkwallet [id]: Create wallet.
   $ pending: View pending TXs.
   $ resendwallet [id]: Resend pending transactions for a single wallet.
   $ retoken: Create new api key.
@@ -53,7 +54,6 @@ require authorization token.
 Admin commands require admin permissions for provided authorization token:
   $ backup [path]: Backup the wallet db.
   $ master: View wallet master key.
-  $ mkwallet [id]: Create wallet.
   $ rescan [height]: Rescan for transactions.
   $ resend: Resend pending transactions for all wallets.
   $ rpc [command] [args]: Execute RPC command.
