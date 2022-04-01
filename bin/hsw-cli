@@ -33,6 +33,7 @@ Commands:
   $ key [address]: Get wallet key by address.
   $ listen: Listen for events.
   $ lock: Lock wallet.
+  $ mkauctiontxs [name] [bid] [lockup] [broadcast]: Create bid and reveal transactions.
   $ mktx [address] [value]: Create transaction.
   $ mkwallet [id]: Create wallet.
   $ pending: View pending TXs.
@@ -352,6 +353,19 @@ class CLI {
     this.log(tx);
   }
 
+  async createAuctionTxs() {
+    const options = {
+      name: this.config.str([0, 'name']),
+      bid: this.config.ufixed([1, 'bid'], EXP),
+      lockup: this.config.ufixed([2, 'lockup'], EXP),
+      broadcastBid: this.config.bool([3, 'broadcastBid']),
+    };
+
+    const txs = await this.wallet.createAuctionTxs(options);
+
+    this.log(txs);
+  }
+
   async createTX() {
     let output;
 
@@ -609,6 +623,9 @@ class CLI {
         break;
       case 'master':
         await this.getMaster();
+        break;
+      case 'mkauctiontxs':
+        await this.createAuctionTxs();
         break;
       case 'mktx':
         await this.createTX();
