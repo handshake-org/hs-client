@@ -253,11 +253,17 @@ class CLI {
   }
 }
 
-(async () => {
-  const cli = new CLI();
-  await cli.open();
-  await cli.destroy();
-})().catch((err) => {
-  console.error(err.stack);
-  process.exit(1);
-});
+if (require.main === module) {
+  // cli, not a require
+
+  (async () => {
+    const cli = new CLI();
+    await cli.open();
+    await cli.destroy();
+  })().catch((err) => {
+    console.error(err.stack);
+    process.exit(1);
+  });
+}
+
+module.exports = CLI;

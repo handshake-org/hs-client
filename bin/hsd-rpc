@@ -1,21 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env node
 
-rl=0
+const CLI = require('./hsd-cli');
 
-if ! type perl > /dev/null 2>& 1; then
-  if uname | grep -i 'darwin' > /dev/null; then
-    echo 'hsd-rpc requires perl to start on OSX.' >& 2
-    exit 1
-  fi
-  rl=1
-fi
-
-if test $rl -eq 1; then
-  file=$(readlink -f "$0")
-else
-  file=$(perl -MCwd -e "print Cwd::realpath('$0')")
-fi
-
-dir=$(dirname "$file")
-
-exec "${dir}/hsd-cli" rpc "$@"
+(async () => {
+  const cli = new CLI();
+  await cli.rpc();
+  await cli.destroy();
+})().catch((err) => {
+  console.error(err.stack);
+  process.exit(1);
+});
