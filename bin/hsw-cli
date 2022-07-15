@@ -358,7 +358,8 @@ class CLI {
       name: this.config.str([0, 'name']),
       bid: this.config.ufixed([1, 'bid'], EXP),
       lockup: this.config.ufixed([2, 'lockup'], EXP),
-      broadcastBid: this.config.bool([3, 'broadcastBid'])
+      broadcastBid: this.config.bool([3, 'broadcastBid']),
+      passphrase: this.config.str('passphrase')
     };
 
     const txs = await this.wallet.createAuctionTxs(options);
