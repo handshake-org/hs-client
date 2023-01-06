@@ -140,7 +140,7 @@ class CLI {
       bip39Passphrase: this.config.str('bip39Passphrase'),
       watchOnly: this.config.has('key') ? true : this.config.bool('watch'),
       accountKey: this.config.str('key'),
-      loookahead: this.config.uint('lookahead'),
+      lookahead: this.config.uint('lookahead'),
       language: this.config.str('language')
     };
 
