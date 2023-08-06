@@ -1,0 +1,5 @@
+#!/usr/bin/env node
+
+// insert `rpc` as first argument
+process.argv.splice(2, 0, 'rpc');
+require('./hsd-cli');

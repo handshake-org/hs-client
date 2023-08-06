@@ -1,0 +1,33 @@
+{
+  "name": "hs-client",
+  "description": "HSD node and wallet client",
+  "keywords": [
+    "http",
+    "request",
+    "socket.io",
+    "websockets"
+  ],
+  "main": "./lib/client/index.js",
+  "bin": {
+    "hsd-cli": "./bin/hsd-cli",
+    "hsd-rpc": "./bin/hsd-rpc",
+    "hsw-cli": "./bin/hsw-cli",
+    "hsw-rpc": "./bin/hsw-rpc"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "version": "6.0.0-rc.1",
+  "license": "MIT",
+  "repository": "git://github.com/handshake-org/hsd.git",
+  "homepage": "https://github.com/handshake-org/hsd",
+  "bugs": {
+    "url": "https://github.com/handshake-org/hsd/issues"
+  },
+  "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
+  "dependencies": {
+    "bcfg": "~0.2.1",
+    "bcurl": "^0.2.0",
+    "bsert": "~0.0.12"
+  }
+}
