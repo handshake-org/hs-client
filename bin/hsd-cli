@@ -3,7 +3,11 @@
 'use strict';
 
 const Config = require('bcfg');
-const NodeClient = require('../lib/node');
+const {NodeClient} = require('../lib/client');
+
+// NOTE: This is part of generated `hs-client`.
+// Don't introduce any unnecessary dependencies to this.
+// This needs to be remain as is for hs-client to be simple.
 
 const ports = {
   main: 12037,
@@ -38,7 +42,7 @@ class CLI {
         'n': 'network',
         'u': 'url',
         'uri': 'url',
-        'k': 'api-key',
+        'k': 'apikey',
         's': 'ssl',
         'h': 'httphost',
         'p': 'httpport'

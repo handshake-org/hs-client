@@ -7,7 +7,9 @@
 .mocharc*
 .yarnignore
 bench/
+browser/hsd*
 build/
+docker_data/
 docs/
 node_modules/
 npm-debug.log
