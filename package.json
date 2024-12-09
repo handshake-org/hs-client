@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "version": "6.0.0",
+  "version": "7.0.0",
   "license": "MIT",
   "repository": "git://github.com/handshake-org/hsd.git",
   "homepage": "https://github.com/handshake-org/hsd",
@@ -26,8 +26,8 @@
   },
   "author": "Christopher Jeffrey <chjjeffrey@gmail.com>",
   "dependencies": {
-    "bcfg": "~0.2.1",
-    "bcurl": "^0.2.0",
-    "bsert": "~0.0.12"
+    "bcfg": "~0.2.2",
+    "bcurl": "~0.2.1",
+    "bsert": "~0.0.13"
   }
 }

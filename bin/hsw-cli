@@ -271,15 +271,29 @@ class CLI {
   }
 
   async getWalletHistory() {
-    const account = this.config.str('account');
-    const txs = await this.wallet.getHistory(account);
+    const options = {
+      account: this.config.str('account'),
+      limit: this.config.uint('limit'),
+      reverse: this.config.bool('reverse'),
+      after: this.config.str('after'),
+      time: this.config.uint('time')
+    };
+
+    const txs = await this.wallet.getHistory(options);
 
     this.log(txs);
   }
 
   async getWalletPending() {
-    const account = this.config.str('account');
-    const txs = await this.wallet.getPending(account);
+    const options = {
+      account: this.config.str('account'),
+      limit: this.config.uint('limit'),
+      reverse: this.config.bool('reverse'),
+      after: this.config.str('after'),
+      time: this.config.uint('time')
+    };
+
+    const txs = await this.wallet.getPending(options);
 
     this.log(txs);
   }
@@ -372,7 +386,7 @@ class CLI {
     this.log(tx);
   }
 
-  async createAuctionTxs() {
+  async createAuctionTXs() {
     const options = {
       name: this.config.str([0, 'name']),
       bid: this.config.ufixed([1, 'bid'], EXP),
@@ -381,7 +395,7 @@ class CLI {
       passphrase: this.config.str('passphrase')
     };
 
-    const txs = await this.wallet.createAuctionTxs(options);
+    const txs = await this.wallet.createAuctionTXs(options);
 
     this.log(txs);
   }
@@ -650,7 +664,7 @@ class CLI {
         await this.getMaster();
         break;
       case 'mkauctiontxs':
-        await this.createAuctionTxs();
+        await this.createAuctionTXs();
         break;
       case 'mktx':
         await this.createTX();
