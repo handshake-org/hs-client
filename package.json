@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=8.0.0"
   },
-  "version": "7.0.0",
+  "version": "8.0.0",
   "license": "MIT",
   "repository": "git://github.com/handshake-org/hsd.git",
   "homepage": "https://github.com/handshake-org/hsd",
